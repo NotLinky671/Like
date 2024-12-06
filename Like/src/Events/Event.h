@@ -2,8 +2,8 @@
 
 #include "../Like/Core.h"
 
-#include <string>
-#include <functional>
+#include "lkpch.h"
+
 
 namespace Like {
     enum class EventType {

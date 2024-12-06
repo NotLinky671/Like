@@ -18,6 +18,9 @@ project "Like"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+    
+    pchheader "lkpch.h"
+    pchsource "Like/src/lkpch.cpp"
 
     files {
         "%{prj.name}/src/**.h",

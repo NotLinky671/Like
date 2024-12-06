@@ -2,7 +2,7 @@
 
 #include "Event.h"
 
-#include <sstream>
+#include "lkpch.h"
 
 namespace Like {
     class LIKE_API MouseEvent : public Event {
