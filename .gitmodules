@@ -1,0 +1,3 @@
+[submodule "Like/vendor/GLFW"]
+	path = Like/vendor/GLFW
+	url = https://github.com/TheCherno/glfw

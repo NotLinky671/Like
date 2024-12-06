@@ -11,6 +11,11 @@ workspace "Like"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Like/vendor/GLFW/include"
+
+include "Like/vendor/GLFW"
+
 project "Like"
     location "Like"
     kind "SharedLib"
@@ -29,7 +34,13 @@ project "Like"
 
     includedirs {
         "%{prj.name}/src",
-        "%{prj.name}/vendor/spdlog/include"
+        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.GLFW}"
+    }
+
+    links {
+        "GLFW",
+        "opengl32"
     }
 
     filter "system:windows"
@@ -57,6 +68,12 @@ project "Like"
     filter "configuretions.Dist"
         defines "LK_DIST"
         symbols "On"
+        
+    filter "configurations:Debug"
+        buildoptions { "/MDd" }
+
+    filter "configurations:Release"
+        buildoptions { "/MD" }
 
     filter "action:vs*"
         buildoptions { "/utf-8" }
