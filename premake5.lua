@@ -59,21 +59,18 @@ project "Like"
 
     filter "configuretions.Debug"
         defines "LK_DEBUG"
+        runtime "Debug"
         symbols "On"
 
     filter "configuretions.Release"
         defines "LK_RELEASE"
+        runtime "Release"
         optimize "On"
 
     filter "configuretions.Dist"
         defines "LK_DIST"
+        runtime "Release"
         symbols "On"
-        
-    filter "configurations:Debug"
-        buildoptions { "/MDd" }
-
-    filter "configurations:Release"
-        buildoptions { "/MD" }
 
     filter "action:vs*"
         buildoptions { "/utf-8" }

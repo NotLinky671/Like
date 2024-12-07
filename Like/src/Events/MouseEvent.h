@@ -5,9 +5,9 @@
 #include "lkpch.h"
 
 namespace Like {
-    class LIKE_API MouseEvent : public Event {
+    class LIKE_API MouseMovedEvent : public Event {
     public:
-        MouseEvent(float x, float y) : m_MouseX(x), m_MouseY(y) {}
+        MouseMovedEvent(float x, float y) : m_MouseX(x), m_MouseY(y) {}
 
         inline float GetX() const { return m_MouseX; }
         inline float GetY() const { return m_MouseY; }
@@ -17,7 +17,7 @@ namespace Like {
             ss << "MouseEvent: " << m_MouseX << ", " << m_MouseY;
             return ss.str();
         }
-        EVENT_CLASS_TYPE(MouseMove)
+        EVENT_CLASS_TYPE(MouseMoved)
         EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
     private:
         float m_MouseX;
