@@ -13,10 +13,12 @@ namespace Like {
 
     void LayerStack::PushLayer(Layer* layer) {
         m_LayerInsert = m_Layers.emplace(m_LayerInsert, layer);
+        layer->OnAttach();
     }
 
     void LayerStack::PushOverlay(Layer* overlayer) {
         m_Layers.emplace_back(overlayer);
+        overlayer->OnAttach();
     }
 
     void LayerStack::PopLayer(Layer* layer) {

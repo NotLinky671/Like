@@ -17,6 +17,7 @@ class Sandbox : public Like::Application {
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Like::ImGuiLayer());
 	}
 
 	~Sandbox() {

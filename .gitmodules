@@ -1,3 +1,6 @@
 [submodule "Like/vendor/GLFW"]
 	path = Like/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
+[submodule "Like/vendor/imgui"]
+	path = Like/vendor/imgui
+	url = https://github.com/TheCherno/imgui.git
