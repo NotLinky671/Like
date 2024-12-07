@@ -13,8 +13,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Like/vendor/GLFW/include"
+IncludeDir["glad"] = "Like/vendor/glad/include"
 
 include "Like/vendor/GLFW"
+include "Like/vendor/glad"
 
 project "Like"
     location "Like"
@@ -35,11 +37,13 @@ project "Like"
     includedirs {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.glad}"
     }
 
     links {
         "GLFW",
+        "glad",
         "opengl32"
     }
 
@@ -50,7 +54,8 @@ project "Like"
 
         defines {
             "LK_PLATFORM_WINDOWS",
-            "LK_BUILD_DLL"
+            "LK_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
 
         postbuildcommands {
@@ -59,21 +64,19 @@ project "Like"
 
     filter "configuretions.Debug"
         defines "LK_DEBUG"
-        buildoptions "/MDd"
         symbols "On"
 
     filter "configuretions.Release"
         defines "LK_RELEASE"
-        buildoptions "/MD"
         optimize "On"
 
     filter "configuretions.Dist"
         defines "LK_DIST"
-        buildoptions "/MD"
         symbols "On"
 
     filter "action:vs*"
         buildoptions { "/utf-8" }
+        buildoptions { "/MD" }
 
 project "Sandbox"
     location "Sandbox"

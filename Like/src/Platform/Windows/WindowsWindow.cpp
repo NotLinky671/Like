@@ -41,6 +41,8 @@ namespace Like {
 
         m_window = glfwCreateWindow((int)m_Data.m_Width, (int)m_Data.m_Height, m_Data.m_Title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(m_window);
+        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        LK_CORE_ASSERT(status, "Failed to initialize glad!");
         glfwSetWindowUserPointer(m_window, &m_Data);
         SetVSync(true);
 
