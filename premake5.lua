@@ -59,17 +59,17 @@ project "Like"
 
     filter "configuretions.Debug"
         defines "LK_DEBUG"
-        runtime "Debug"
+        buildoptions "/MDd"
         symbols "On"
 
     filter "configuretions.Release"
         defines "LK_RELEASE"
-        runtime "Release"
+        buildoptions "/MD"
         optimize "On"
 
     filter "configuretions.Dist"
         defines "LK_DIST"
-        runtime "Release"
+        buildoptions "/MD"
         symbols "On"
 
     filter "action:vs*"
@@ -108,14 +108,17 @@ project "Sandbox"
 
     filter "configuretions.Debug"
         defines "LK_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
 
     filter "configuretions.Release"
         defines "LK_RELEASE"
+        buildoptions "/MD"
         optimize "On"
 
     filter "configuretions.Dist"
         defines "LK_DIST"
+        buildoptions "/MD"
         symbols "On"
 
     filter "action:vs*"
