@@ -41,9 +41,6 @@ namespace Like {
 			for (Layer* layer : m_LayerStack) {
 				layer->OnUpdate();
 			}
-
-			auto[x, y] = Input::GetMousePosition();
-			LK_CORE_TRACE("{0}, {1}", x, y);
 			
 			m_Window->OnUpdate();
 		}
@@ -53,7 +50,7 @@ namespace Like {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		
-		LK_CORE_TRACE("{0}", e);
+		// LK_CORE_TRACE("{0}", e);
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); ) {
 			(*--it)->OnEvent(e);

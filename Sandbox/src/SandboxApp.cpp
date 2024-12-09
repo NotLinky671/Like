@@ -5,11 +5,20 @@ public:
 	ExampleLayer() : Layer("Example"){}
 
 	void OnUpdate() override {
-		LK_INFO("ExampleLayer::OnUpdate");
+		if (Like::Input::IsKeyPressed(LK_KEY_TAB))
+		{
+			LK_TRACE("Tab key is pressed (poll)!");
+		}
 	}
 
 	void OnEvent(Like::Event& event) override {
-		LK_TRACE(("{0}", event));
+		if (event.GetEventType() == Like::EventType::KeyPressed)
+		{
+			Like::KeyPressedEvent& e = (Like::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == LK_KEY_TAB)
+				LK_TRACE("Tab key is pressed (event)!");
+			LK_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 };
 

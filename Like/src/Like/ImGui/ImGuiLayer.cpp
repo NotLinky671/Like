@@ -31,7 +31,7 @@ namespace Like {
         io.KeyMap[ImGuiKey_UpArrow] = GLFW_KEY_UP;
         io.KeyMap[ImGuiKey_DownArrow] = GLFW_KEY_DOWN;
         io.KeyMap[ImGuiKey_Backspace] = GLFW_KEY_BACKSPACE;
-        io.KeyMap[ImGuiKey_Space] = GLFW_KEY_SPACE;
+        io.KeyMap[ImGuiKey_Space] = LK_KEY_SPACE;
         io.KeyMap[ImGuiKey_Enter] = GLFW_KEY_ENTER;
         io.KeyMap[ImGuiKey_LeftShift] = GLFW_KEY_LEFT_SHIFT;
         io.KeyMap[ImGuiKey_RightShift] = GLFW_KEY_RIGHT_SHIFT;
