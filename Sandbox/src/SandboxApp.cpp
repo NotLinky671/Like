@@ -1,5 +1,7 @@
 #include <Like.h>
 
+#include "imgui/imgui.h"
+
 class ExampleLayer : public Like::Layer {
 public:
 	ExampleLayer() : Layer("Example"){}
@@ -9,6 +11,13 @@ public:
 		{
 			LK_TRACE("Tab key is pressed (poll)!");
 		}
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World!");
+		ImGui::End();
 	}
 
 	void OnEvent(Like::Event& event) override {
@@ -26,7 +35,6 @@ class Sandbox : public Like::Application {
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Like::ImGuiLayer());
 	}
 
 	~Sandbox() {
