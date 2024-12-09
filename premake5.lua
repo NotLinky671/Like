@@ -24,6 +24,7 @@ project "Like"
     location "Like"
     kind "SharedLib"
     language "C++"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -53,7 +54,6 @@ project "Like"
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
 
         defines {
@@ -63,29 +63,32 @@ project "Like"
         }
 
         postbuildcommands {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
         }
 
     filter "configuretions.Debug"
         defines "LK_DEBUG"
+        runtime "Debug"
         symbols "On"
 
     filter "configuretions.Release"
         defines "LK_RELEASE"
+        runtime "Release"
         optimize "On"
 
     filter "configuretions.Dist"
         defines "LK_DIST"
+        runtime "Release"
         symbols "On"
 
     filter "action:vs*"
         buildoptions { "/utf-8" }
-        buildoptions { "/MD" }
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -106,7 +109,6 @@ project "Sandbox"
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
 
         defines {
@@ -115,17 +117,17 @@ project "Sandbox"
 
     filter "configuretions.Debug"
         defines "LK_DEBUG"
-        buildoptions "/MDd"
+        runtime "Debug"
         symbols "On"
 
     filter "configuretions.Release"
         defines "LK_RELEASE"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter "configuretions.Dist"
         defines "LK_DIST"
-        buildoptions "/MD"
+        runtime "Release"
         symbols "On"
 
     filter "action:vs*"

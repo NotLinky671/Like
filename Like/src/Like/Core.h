@@ -10,6 +10,10 @@
 	#error Like only support Windows!
 #endif
 
+#ifdef LK_DEBUG
+	#define LK_ENABLE_ASSERTS
+#endif
+
 #ifdef LK_ENABLE_ASSERTS
 #define LK_ASSERT(x, ...) { if(!(x)) {LK_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #define LK_CORE_ASSERT(x, ...) { if(!(x)) {LK_FATAL_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
