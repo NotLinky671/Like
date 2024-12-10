@@ -23,9 +23,10 @@ include "Like/vendor/imgui"
 
 project "Like"
     location "Like"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
-    staticruntime "off"
+    cppdialect "C++17"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -39,6 +40,8 @@ project "Like"
         "%{prj.name}/vendor/glm/glm/**.hpp",
         "%{prj.name}/vendor/glm/glm/**.inl"
     }
+
+    defines "_CRT_SECURE_NO_WARNINGS"
 
     includedirs {
         "%{prj.name}/src",
@@ -57,7 +60,6 @@ project "Like"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
         systemversion "latest"
 
         defines {
@@ -66,33 +68,33 @@ project "Like"
             "GLFW_INCLUDE_NONE"
         }
 
-        postbuildcommands {
-            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-        }
-
     filter "configuretions.Debug"
         defines "LK_DEBUG"
         runtime "Debug"
-        symbols "On"
+        symbols "on"
 
     filter "configuretions.Release"
         defines "LK_RELEASE"
         runtime "Release"
-        optimize "On"
+        optimize "on"
 
     filter "configuretions.Dist"
         defines "LK_DIST"
         runtime "Release"
-        symbols "On"
+        symbols "on"
 
     filter "action:vs*"
-        buildoptions { "/utf-8" }
+        buildoptions 
+        { 
+            "/utf-8"
+        }
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
-    staticruntime "off"
+    cppdialect "C++17"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -114,7 +116,6 @@ project "Sandbox"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
         systemversion "latest"
 
         defines {
@@ -124,17 +125,17 @@ project "Sandbox"
     filter "configuretions.Debug"
         defines "LK_DEBUG"
         runtime "Debug"
-        symbols "On"
+        symbols "on"
 
     filter "configuretions.Release"
         defines "LK_RELEASE"
         runtime "Release"
-        optimize "On"
+        optimize "on"
 
     filter "configuretions.Dist"
         defines "LK_DIST"
         runtime "Release"
-        symbols "On"
+        symbols "on"
 
     filter "action:vs*"
         buildoptions { "/utf-8" }

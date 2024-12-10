@@ -1,7 +1,6 @@
 #include "lkpch.h"
 #include "ImGuiLayer.h"
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "imgui.h"
@@ -68,7 +67,7 @@ namespace Like {
     {
         ImGuiIO& io = ImGui::GetIO();
         Application& app = Application::Get();
-        io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+        io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
         // Rendering
         ImGui::Render();
