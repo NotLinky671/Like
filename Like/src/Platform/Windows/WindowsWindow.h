@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "Like/Window.h"
+#include "Like/Renderer/GraphicsContext.h"
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Like {
@@ -28,6 +28,7 @@ namespace Like {
 
     private:
         GLFWwindow* m_window;
+        GraphicsContext* m_Context;
         
         struct WindowData {
           std::string m_Title;

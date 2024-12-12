@@ -6,6 +6,8 @@
 #include "Events/MouseEvent.h"
 #include "Like/Log.h"
 
+#include "Platform/OpenGL/OpenGLContext.h"
+
 namespace Like {
     static bool s_GLFWInitialized = false;
 
@@ -30,8 +32,9 @@ namespace Like {
         m_Data.m_Width = props.Width;
         m_Data.m_Height = props.Height;
 
-        LK_CORE_INFO("Creating window {0} {1} {2}", props.Title, props.Width, props.Height);
 
+        LK_CORE_INFO("Creating window {0} {1} {2}", props.Title, props.Width, props.Height);
+        
         if (!s_GLFWInitialized) {
             int success = glfwInit();
             LK_CORE_ASSERT(success, "Could not initialize GLFW!");
@@ -40,9 +43,10 @@ namespace Like {
         }
 
         m_window = glfwCreateWindow((int)m_Data.m_Width, (int)m_Data.m_Height, m_Data.m_Title.c_str(), nullptr, nullptr);
-        glfwMakeContextCurrent(m_window);
-        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        LK_CORE_ASSERT(status, "Failed to initialize glad!");
+
+        m_Context = new OpenGLContext(m_window);
+        m_Context->Init();
+        
         glfwSetWindowUserPointer(m_window, &m_Data);
         SetVSync(true);
 
@@ -127,7 +131,7 @@ namespace Like {
 
     void WindowsWindow::OnUpdate() {
         glfwPollEvents();
-        glfwSwapBuffers(m_window);
+        m_Context->SwapBuffers();
     }
 
     void WindowsWindow::SetVSync(bool enabled) {
