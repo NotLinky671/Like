@@ -6,6 +6,7 @@
 #include "ImGui/ImGuiLayer.h"
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
+#include "Renderer/Shader.h"
 
 namespace Like {
 	class LIKE_API Application {
@@ -33,6 +34,7 @@ namespace Like {
 		unsigned int m_VertexArray;
 		unsigned int m_VertexBuffer;
 		unsigned int m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 	};
 
 	// To be define in client
