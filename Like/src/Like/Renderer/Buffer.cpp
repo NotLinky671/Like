@@ -9,10 +9,10 @@ namespace Like
     {
         switch (Renderer::GetAPI())
         {
-        case RendererAPI::None:
+        case RendererAPI::API::None:
             LK_CORE_ASSERT(false, "RendererAPI::None is not supported");
             return nullptr;
-        case RendererAPI::OpenGL:
+        case RendererAPI::API::OpenGL:
             return new OpenGLVertexBuffer(vertices, size);
         }
         LK_CORE_ASSERT(false, "Unknown RendererAPI");
@@ -23,10 +23,10 @@ namespace Like
     {
         switch (Renderer::GetAPI())
         {
-        case RendererAPI::None:
+        case RendererAPI::API::None:
             LK_CORE_ASSERT(false, "RendererAPI::None is not supported");
             return nullptr;
-        case RendererAPI::OpenGL:
+        case RendererAPI::API::OpenGL:
             return new OpenGLIndexBuffer(indices, count);
         }
         LK_CORE_ASSERT(false, "Unknown RendererAPI");
