@@ -8,6 +8,7 @@
 #include "Events/ApplicationEvent.h"
 #include "Renderer/Buffer.h"
 #include "Renderer/Shader.h"
+#include "Renderer/VertexArray.h"
 
 namespace Like {
 	class LIKE_API Application {
@@ -31,11 +32,12 @@ namespace Like {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		static Application* s_Instance;
+		
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
 
-		unsigned int m_VertexArray;
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<VertexArray> m_SquareVA;
+		std::shared_ptr<Shader> m_BlueShader;
 	};
 
 	// To be define in client
