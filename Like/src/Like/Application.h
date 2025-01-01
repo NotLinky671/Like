@@ -6,9 +6,9 @@
 #include "ImGui/ImGuiLayer.h"
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
-#include "Renderer/Buffer.h"
 #include "Renderer/Shader.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/OrthographicCamera.h"
 
 namespace Like {
 	class LIKE_API Application {
@@ -38,6 +38,8 @@ namespace Like {
 
 		std::shared_ptr<VertexArray> m_SquareVA;
 		std::shared_ptr<Shader> m_BlueShader;
+
+		OrthographicCamera m_Camera;
 	};
 
 	// To be define in client

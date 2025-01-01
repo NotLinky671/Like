@@ -2,7 +2,6 @@
 #include "Application.h"
 
 #include "Log.h"
-
 #include "Platform/OpenGL/OpenGLBuffer.h"
 #include "Renderer/Renderer.h"
 
@@ -11,7 +10,9 @@ namespace Like {
 
 	Application* Application::s_Instance = nullptr;
 	
-	Application::Application() {
+	Application::Application()
+		: m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+	{
 		LK_CORE_ASSERT(!s_Instance, "Application already exists");
 		s_Instance = this;
 		
@@ -69,12 +70,14 @@ namespace Like {
 			#version 330 core
 			layout(location = 0) in vec3 m_Position;
 
+			uniform mat4 u_ViewProjection;
+
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = m_Position + 0.5f;
-				gl_Position = vec4(m_Position, 1.0f);
+				gl_Position = u_ViewProjection * vec4(m_Position, 1.0f);
 			}
 		)";
 
@@ -97,12 +100,14 @@ namespace Like {
 			
 			layout(location = 0) in vec3 a_Position;
 
+			uniform mat4 u_ViewProjection;
+
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -139,13 +144,10 @@ namespace Like {
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 			RenderCommand::Clear();
 
-			Renderer::BeginScene();
-
-			m_BlueShader->Bind();
-			Renderer::Submit(m_SquareVA);
-
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);
+			Renderer::BeginScene(m_Camera);
+			
+			Renderer::Submit(m_SquareVA, m_BlueShader);
+			Renderer::Submit(m_VertexArray, m_Shader);
 
 			Renderer::EndScene();
 			
