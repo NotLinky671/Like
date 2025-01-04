@@ -10,3 +10,12 @@
 #include "Like/Input.h"
 #include "Like/KeyCodes.h"
 #include "Like/MouseButtonCodes.h"
+
+#include "Like/Renderer/Renderer.h"
+#include "Like/Renderer/RenderCommand.h"
+
+#include "Like/Renderer/Buffer.h"
+#include "Like/Renderer/Shader.h"
+#include "Like/Renderer/VertexArray.h"
+
+#include "Like/Renderer/OrthographicCamera.h"

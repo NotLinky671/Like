@@ -32,14 +32,6 @@ namespace Like {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		static Application* s_Instance;
-		
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<VertexArray> m_SquareVA;
-		std::shared_ptr<Shader> m_BlueShader;
-
-		OrthographicCamera m_Camera;
 	};
 
 	// To be define in client
