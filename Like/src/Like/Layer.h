@@ -2,6 +2,7 @@
 
 #include "Like/Core.h"
 #include "Events/Event.h"
+#include "Core/Timestep.h"
 
 namespace Like {
     class LIKE_API Layer {
@@ -11,7 +12,7 @@ namespace Like {
 
         virtual void OnAttach() {}
         virtual void OnDetach() {}
-        virtual void OnUpdate() {}
+        virtual void OnUpdate(Timestep ts) {}
         virtual void OnImGuiRender() {}
         virtual void OnEvent(Event& event) {}
 

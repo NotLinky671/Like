@@ -1,14 +1,15 @@
 #pragma once
 
 #include "Core.h"
+
 #include "Window.h"
 #include "LayerStack.h"
-#include "ImGui/ImGuiLayer.h"
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
-#include "Renderer/Shader.h"
-#include "Renderer/VertexArray.h"
-#include "Renderer/OrthographicCamera.h"
+
+#include "Core/Timestep.h"
+
+#include "ImGui/ImGuiLayer.h"
 
 namespace Like {
 	class LIKE_API Application {
@@ -32,6 +33,8 @@ namespace Like {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		static Application* s_Instance;
+		Timestep m_Timestep;
+		float m_LastFrameTime = 0.0f;
 	};
 
 	// To be define in client

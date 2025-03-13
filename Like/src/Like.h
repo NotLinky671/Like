@@ -4,6 +4,8 @@
 #include "Like/EntryPoint.h"
 #include "Like/Log.h"
 
+#include "Like/Core/Timestep.h"
+
 #include "Like/Layer.h"
 #include "Like/ImGui/ImGuiLayer.h"
 

@@ -1,8 +1,6 @@
 #pragma once
-#include "Events/ApplicationEvent.h"
+
 #include "Like/Layer.h"
-#include "Events/KeyEvent.h"
-#include "Events/MouseEvent.h"
 
 namespace Like {
     class LIKE_API ImGuiLayer : public Layer {
