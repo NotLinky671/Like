@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef LK_PLATFORM_WINDOWS
 #if LK_DYNAMIC_LINK
 	#ifdef LK_BUILD_DLL
@@ -29,3 +31,12 @@
 #define BIT(x) (1 << x)
 
 #define LK_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+namespace Like
+{
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}

@@ -18,6 +18,7 @@
 
 #include "Like/Renderer/Buffer.h"
 #include "Like/Renderer/Shader.h"
+#include "Like/Renderer/Texture.h"
 #include "Like/Renderer/VertexArray.h"
 
 #include "Like/Renderer/OrthographicCamera.h"

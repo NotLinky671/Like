@@ -21,7 +21,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<Like::VertexBuffer> vertexBuffer;
+		Like::Ref<Like::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Like::VertexBuffer::Create(vertices, sizeof(vertices)));
 		
 		Like::BufferLayout layout = {
@@ -33,27 +33,28 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Like::IndexBuffer> indexBuffer;
+		Like::Ref<Like::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Like::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA.reset(Like::VertexArray::Create());
 
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
-		std::shared_ptr<Like::VertexBuffer> squareVB;
+		Like::Ref<Like::VertexBuffer> squareVB;
 		squareVB.reset(Like::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
-			{ Like::ShaderDataType::Float3, "a_Position" }
+			{ Like::ShaderDataType::Float3, "a_Position" },
+			{ Like::ShaderDataType::Float2, "a_TexCoord" }
 		});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Like::IndexBuffer> squareIB;
+		Like::Ref<Like::IndexBuffer> squareIB;
 		squareIB.reset(Like::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -120,11 +121,52 @@ public:
 		)";
 
 		m_FlatColorShader.reset(Like::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+
+		std::string TextureShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string TextureShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+			
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Like::Shader::Create(TextureShaderVertexSrc, TextureShaderFragmentSrc));
+
+		m_Texture = Like::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_ChernoLogoTexture = Like::Texture2D::Create("assets/textures/ChernoLogo.png");
+
+		std::dynamic_pointer_cast<Like::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Like::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Like::Timestep ts) override
 	{
-		LK_TRACE("Delta-Time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
+		// LK_TRACE("Delta-Time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
 		
 		if (Like::Input::IsKeyPressed(LK_KEY_LEFT))
 			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
@@ -163,8 +205,16 @@ public:
 				Like::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 			}
 		}
-		
-		Like::Renderer::Submit(m_Shader, m_VertexArray);
+
+		m_Texture->Bind();
+		Like::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		m_ChernoLogoTexture->Bind();
+		Like::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+
+		// Triangle
+		// Like::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Like::Renderer::EndScene();
 	}
@@ -181,12 +231,16 @@ public:
 		
 	}
 private:
-	std::shared_ptr<Like::Shader> m_Shader;
-	std::shared_ptr<Like::VertexArray> m_VertexArray;
+	Like::Ref<Like::Shader> m_Shader;
+	Like::Ref<Like::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Like::VertexArray> m_SquareVA;
-	std::shared_ptr<Like::Shader> m_FlatColorShader;
-
+	Like::Ref<Like::Shader> m_FlatColorShader;
+	Like::Ref<Like::VertexArray> m_SquareVA;
+	
+	Like::Ref<Like::Shader> m_TextureShader;
+	Like::Ref<Like::Texture2D> m_Texture;
+	Like::Ref<Like::Texture2D> m_ChernoLogoTexture;
+	
 	Like::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
 	float m_CameraRotation = 0.0f;

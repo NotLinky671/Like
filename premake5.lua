@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "Like/vendor/GLFW/include"
 IncludeDir["glad"] = "Like/vendor/glad/include"
 IncludeDir["ImGui"] = "Like/vendor/imgui"
 IncludeDir["glm"] = "Like/vendor/glm"
+IncludeDir["stb_image"] = "Like/vendor/stb_image"
 
 include "Like/vendor/GLFW"
 include "Like/vendor/glad"
@@ -37,6 +38,8 @@ project "Like"
     files {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h",
+        "%{prj.name}/vendor/stb_image/**.cpp",
         "%{prj.name}/vendor/glm/glm/**.hpp",
         "%{prj.name}/vendor/glm/glm/**.inl"
     }
@@ -49,7 +52,8 @@ project "Like"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.stb_image}"
     }
 
     links {

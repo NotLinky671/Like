@@ -45,7 +45,7 @@ namespace Like
         glDeleteVertexArrays(1, &m_RendererID);
     }
     
-    void Like::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+    void Like::OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
     {
         LK_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
     
@@ -68,7 +68,7 @@ namespace Like
         m_VertexBuffers.push_back(vertexBuffer);
     }
     
-    void Like::OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+    void Like::OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
     {
         glBindVertexArray(m_RendererID);
         indexBuffer->Bind();
