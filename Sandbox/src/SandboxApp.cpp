@@ -11,7 +11,7 @@ class ExampleLayer : public Like::Layer {
 public:
 	ExampleLayer()
 		: Layer("Example"),
-		  m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+	      m_CameraController(1280.0f / 720.0f)
 	{
 		m_VertexArray.reset(Like::VertexArray::Create());
 
@@ -133,30 +133,14 @@ public:
 
 	void OnUpdate(Like::Timestep ts) override
 	{
-		// LK_TRACE("Delta-Time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
-		
-		if (Like::Input::IsKeyPressed(LK_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-		else if (Like::Input::IsKeyPressed(LK_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed * ts;
-		
-		if (Like::Input::IsKeyPressed(LK_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed * ts;
-		else if (Like::Input::IsKeyPressed(LK_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
+		// Update
+		m_CameraController.OnUpdate(ts);
 
-		if (Like::Input::IsKeyPressed(LK_KEY_A))
-			m_CameraRotation += m_CameraRotationSpeed * ts;
-		if (Like::Input::IsKeyPressed(LK_KEY_D))
-			m_CameraRotation -= m_CameraRotationSpeed * ts;
-		
+		// Render
 		Like::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Like::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
-
-		Like::Renderer::BeginScene(m_Camera);
+		Like::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -181,10 +165,6 @@ public:
 		m_ChernoLogoTexture->Bind();
 		Like::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
-
-		// Triangle
-		// Like::Renderer::Submit(m_Shader, m_VertexArray);
-
 		Like::Renderer::EndScene();
 	}
 
@@ -195,9 +175,9 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(Like::Event& event) override
+	void OnEvent(Like::Event& e) override
 	{
-		
+		m_CameraController.OnEvent(e);
 	}
 private:
 	Like::ShaderLibrary m_ShaderLibrary;
@@ -210,11 +190,7 @@ private:
 	Like::Ref<Like::Texture2D> m_Texture;
 	Like::Ref<Like::Texture2D> m_ChernoLogoTexture;
 	
-	Like::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
-	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 20.0f;
-	float m_CameraMoveSpeed = 4.0f;
+	Like::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };
