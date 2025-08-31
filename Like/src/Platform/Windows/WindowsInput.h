@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Like/Input.h"
+#include "Like/Core/Input.h"
 
 namespace Like
 {

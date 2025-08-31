@@ -2,8 +2,8 @@
 #include "Like/Renderer/OrthographicCamera.h"
 #include "Like/Core/Timestep.h"
 
-#include "Events/ApplicationEvent.h"
-#include "Events/MouseEvent.h"
+#include "Like/Events/ApplicationEvent.h"
+#include "Like/Events/MouseEvent.h"
 
 namespace Like
 {

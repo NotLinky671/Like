@@ -1,10 +1,10 @@
 ﻿#include "lkpch.h"
 #include "WindowsWindow.h"
 
-#include "Events/ApplicationEvent.h"
-#include "Events/KeyEvent.h"
-#include "Events/MouseEvent.h"
-#include "Like/Log.h"
+#include "Like/Events/ApplicationEvent.h"
+#include "Like/Events/KeyEvent.h"
+#include "Like/Events/MouseEvent.h"
+#include "Like/Core/Log.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
 

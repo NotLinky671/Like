@@ -2,7 +2,7 @@
 #include "WindowsInput.h"
 
 #include <GLFW/glfw3.h>
-#include "Like/Application.h"
+#include "Like/Core/Application.h"
 
 namespace Like
 {

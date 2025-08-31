@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Like/Core.h"
-#include "Events/Event.h"
-#include "Core/Timestep.h"
+#include "Like/Core/Core.h"
+#include "Like/Events/Event.h"
+#include "Like/Core/Timestep.h"
 
 namespace Like {
     class LIKE_API Layer {

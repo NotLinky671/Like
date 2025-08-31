@@ -1,8 +1,8 @@
 #include "lkpch.h"
 #include "OrthographicCameraController.h"
 
-#include "Input.h"
-#include "KeyCodes.h"
+#include "Like/Core/Input.h"
+#include "Like/Core/KeyCodes.h"
 
 namespace Like
 {

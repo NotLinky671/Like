@@ -2,8 +2,8 @@
 
 #include "lkpch.h"
 
-#include "Like/Core.h"
-#include "Events/Event.h"
+#include "Like/Core/Core.h"
+#include "Like/Events/Event.h"
 
 namespace Like {
     struct WindowProps {

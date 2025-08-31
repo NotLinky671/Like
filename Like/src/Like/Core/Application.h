@@ -4,12 +4,12 @@
 
 #include "Window.h"
 #include "LayerStack.h"
-#include "Events/Event.h"
-#include "Events/ApplicationEvent.h"
+#include "Like/Events/Event.h"
+#include "Like/Events/ApplicationEvent.h"
 
-#include "Core/Timestep.h"
+#include "Like/Core/Timestep.h"
 
-#include "ImGui/ImGuiLayer.h"
+#include "Like/ImGui/ImGuiLayer.h"
 
 namespace Like {
 	class LIKE_API Application {

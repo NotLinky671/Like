@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Like/Application.h"
-#include "Like/Layer.h"
-#include "Like/Log.h"
+#include "Like/Core/Application.h"
+#include "Like/Core/Layer.h"
+#include "Like/Core/Log.h"
 
 #include "Like/Core/Timestep.h"
 
-#include "Like/Input.h"
-#include "Like/KeyCodes.h"
-#include "Like/MouseButtonCodes.h"
-#include "Like/OrthographicCameraController.h"
+#include "Like/Core/Input.h"
+#include "Like/Core/KeyCodes.h"
+#include "Like/Core/MouseButtonCodes.h"
+#include "Like/Renderer/OrthographicCameraController.h"
 
 #include "Like/ImGui/ImGuiLayer.h"
 
@@ -23,4 +23,4 @@
 
 #include "Like/Renderer/OrthographicCamera.h"
 
-#include "Like/EntryPoint.h"
+#include "Like/Core/EntryPoint.h"

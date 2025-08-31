@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../Like/Core.h"
+#include "Like/Core/Core.h"
 
 #include "lkpch.h"
 

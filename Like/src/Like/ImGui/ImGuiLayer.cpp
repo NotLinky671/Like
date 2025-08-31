@@ -6,7 +6,7 @@
 #include "imgui.h"
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
-#include "Like/Application.h"
+#include "Like/Core/Application.h"
 
 namespace Like {
     ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
