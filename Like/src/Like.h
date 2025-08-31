@@ -22,5 +22,3 @@
 #include "Like/Renderer/VertexArray.h"
 
 #include "Like/Renderer/OrthographicCamera.h"
-
-#include "Like/Core/EntryPoint.h"

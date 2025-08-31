@@ -1,10 +1,13 @@
 #include <Like.h>
 
+#include <Like/Core/EntryPoint.h>
+
 #include "Platform/OpenGL/OpenGLShader.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Sandbox2D.h"
 #include "imgui/imgui.h"
 
 class ExampleLayer : public Like::Layer {
@@ -13,7 +16,7 @@ public:
 		: Layer("Example"),
 	      m_CameraController(1280.0f / 720.0f)
 	{
-		m_VertexArray.reset(Like::VertexArray::Create());
+		m_VertexArray = Like::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -37,7 +40,7 @@ public:
 		indexBuffer.reset(Like::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVA.reset(Like::VertexArray::Create());
+		m_SquareVA = Like::VertexArray::Create();
 
 		float squareVertices[5 * 4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -198,7 +201,8 @@ private:
 class Sandbox : public Like::Application {
 public:
 	Sandbox() {
-		PushLayer(new ExampleLayer());
+		// PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox() {
