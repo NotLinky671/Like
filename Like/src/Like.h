@@ -14,6 +14,7 @@
 #include "Like/ImGui/ImGuiLayer.h"
 
 #include "Like/Renderer/Renderer.h"
+#include "Like/Renderer/Renderer2D.h"
 #include "Like/Renderer/RenderCommand.h"
 
 #include "Like/Renderer/Buffer.h"
