@@ -15,6 +15,8 @@
 
 #include "Like/Core/Log.h"
 
+#include "Like/Debug/Instrumentor.h"
+
 #ifdef LK_PLATFORM_WINDOWS
     #include <Windows.h>
 #endif
