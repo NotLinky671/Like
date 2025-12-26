@@ -36,21 +36,29 @@ namespace Like
 
     OpenGLVertexArray::~OpenGLVertexArray()
     {
+        LK_PROFILE_FUNCTION()
+
         glDeleteVertexArrays(1, &m_RendererID);
     }
 
     void Like::OpenGLVertexArray::Bind() const
     {
+        LK_PROFILE_FUNCTION()
+
         glBindVertexArray(m_RendererID);
     }
     
     void Like::OpenGLVertexArray::Unbind() const
     {
+        LK_PROFILE_FUNCTION()
+
         glDeleteVertexArrays(1, &m_RendererID);
     }
     
     void Like::OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
     {
+        LK_PROFILE_FUNCTION()
+
         LK_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
     
         glBindVertexArray(m_RendererID);
@@ -74,6 +82,8 @@ namespace Like
     
     void Like::OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
     {
+        LK_PROFILE_FUNCTION()
+
         glBindVertexArray(m_RendererID);
         indexBuffer->Bind();
     

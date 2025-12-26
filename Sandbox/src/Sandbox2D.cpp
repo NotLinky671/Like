@@ -13,12 +13,14 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+    LK_PROFILE_FUNCTION()
+
 	m_CheckerboardTexture = Like::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2D::OnDetach()
 {
-    
+    LK_PROFILE_FUNCTION()
 }
 
 void Sandbox2D::OnUpdate(Like::Timestep ts)
@@ -26,10 +28,7 @@ void Sandbox2D::OnUpdate(Like::Timestep ts)
 	LK_PROFILE_FUNCTION()
 	
     // Update
-	{
-		LK_PROFILE_SCOPE("CameraController.OnUpdate")
-		m_CameraController.OnUpdate(ts);
-	}
+    m_CameraController.OnUpdate(ts);
 
     // Render
 	{

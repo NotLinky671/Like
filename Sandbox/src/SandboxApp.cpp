@@ -210,6 +210,7 @@ public:
 	}
 };
 
-Like::Application* Like::CreateApplication() {
+Like::Application* Like::CreateApplication()
+{
 	return new Sandbox();
 }

@@ -4,8 +4,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-namespace Like
-{
+namespace Like {
     OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
         : m_WindowHandle(windowHandle)
     {
@@ -14,6 +13,8 @@ namespace Like
 
     void OpenGLContext::Init()
     {
+        LK_PROFILE_FUNCTION()
+
         glfwMakeContextCurrent(m_WindowHandle);
         int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         LK_CORE_ASSERT(status, "Failed to initialize glad!");
@@ -26,6 +27,8 @@ namespace Like
 
     void OpenGLContext::SwapBuffers()
     {
+        LK_PROFILE_FUNCTION()
+
         glfwSwapBuffers(m_WindowHandle);
     }
 }

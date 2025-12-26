@@ -19,6 +19,8 @@ namespace Like
     
     void Renderer2D::Init()
     {
+        LK_PROFILE_FUNCTION()
+
         LK_CORE_INFO("Renderer2D::Init() starting");
         s_Data = new Renderer2DStorage();
         LK_CORE_INFO("Creating QuadVertexArray");
@@ -67,17 +69,23 @@ namespace Like
 
     void Renderer2D::Shutdown()
     {
+        LK_PROFILE_FUNCTION()
+
         delete s_Data;
     }
 
     void Renderer2D::BeginScene(const OrthographicCamera& camera)
     {
+        LK_PROFILE_FUNCTION()
+
         s_Data->TextureShader->Bind();
         s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
     }
 
     void Renderer2D::EndScene()
     {
+        LK_PROFILE_FUNCTION()
+
         
     }
 
@@ -88,6 +96,8 @@ namespace Like
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
     {
+        LK_PROFILE_FUNCTION()
+
         s_Data->TextureShader->SetFloat4("u_Color", color);
         s_Data->WhiteTexture->Bind();
 
@@ -105,6 +115,8 @@ namespace Like
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
     {
+        LK_PROFILE_FUNCTION()
+
         s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
         texture->Bind();
         

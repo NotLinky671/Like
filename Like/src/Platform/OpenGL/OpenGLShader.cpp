@@ -19,6 +19,8 @@ namespace Like
     
     OpenGLShader::OpenGLShader(const std::string& filepath)
     {
+        LK_PROFILE_FUNCTION()
+
         std::string source = ReadFile(filepath);
         auto shaderSources = PreProcess(source);
         Compile(shaderSources);
@@ -33,6 +35,8 @@ namespace Like
     OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
         : m_Name(name)
     {
+        LK_PROFILE_FUNCTION()
+
         std::unordered_map<GLenum, std::string> sources;
         sources[GL_VERTEX_SHADER] = vertexSrc;
         sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -41,11 +45,15 @@ namespace Like
 
     OpenGLShader::~OpenGLShader()
     {
+        LK_PROFILE_FUNCTION()
+
         glDeleteProgram(m_RendererID);
     }
 
     std::string OpenGLShader::ReadFile(const std::string& filepath)
     {
+        LK_PROFILE_FUNCTION()
+
         std::string result;
         std::ifstream in(filepath, std::ios::in | std::ios::binary);
         if (in)
@@ -66,6 +74,8 @@ namespace Like
 
     std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
     {
+        LK_PROFILE_FUNCTION()
+
         std::unordered_map<GLenum, std::string> shaderSource;
         
         const char* typeToken = "#type";
@@ -90,6 +100,8 @@ namespace Like
 
     void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> ShaderSources)
     {
+        LK_PROFILE_FUNCTION()
+
         GLuint program = glCreateProgram();
         LK_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now!")
         std::array<GLuint, 2> glShaderIDs;
@@ -149,31 +161,43 @@ namespace Like
 
     void OpenGLShader::Bind() const
     {
+        LK_PROFILE_FUNCTION()
+
         glUseProgram(m_RendererID);
     }
 
     void OpenGLShader::Unbind() const
     {
+        LK_PROFILE_FUNCTION()
+
         glUseProgram(0);
     }
 
     void OpenGLShader::SetInt(const std::string& name, const int value)
     {
+        LK_PROFILE_FUNCTION()
+
         UploadUniformInt(name, value);
     }
 
     void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
     {
+        LK_PROFILE_FUNCTION()
+
         UploadUniformFloat3(name, value);
     }
 
     void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
     {
+        LK_PROFILE_FUNCTION()
+
         UploadUniformFloat4(name, value);
     }
 
     void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
     {
+        LK_PROFILE_FUNCTION()
+
         UploadUniformMat4(name, value);
     }
 

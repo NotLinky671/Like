@@ -8,16 +8,22 @@
 #include "backends/imgui_impl_opengl3.h"
 #include "Like/Core/Application.h"
 
-namespace Like {
-    ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
+namespace Like
+{
+    ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer")
+    {
         
     }
 
-    ImGuiLayer::~ImGuiLayer() {
+    ImGuiLayer::~ImGuiLayer()
+    {
         
     }
 
-    void ImGuiLayer::OnAttach() {
+    void ImGuiLayer::OnAttach()
+    {
+        LK_PROFILE_FUNCTION()
+
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -50,7 +56,10 @@ namespace Like {
         ImGui_ImplOpenGL3_Init("#version 410");
     }
 
-    void ImGuiLayer::OnDetach() {
+    void ImGuiLayer::OnDetach()
+    {
+        LK_PROFILE_FUNCTION()
+
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
@@ -58,6 +67,8 @@ namespace Like {
 
     void ImGuiLayer::Begin()
     {
+        LK_PROFILE_FUNCTION()
+
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
@@ -65,6 +76,8 @@ namespace Like {
 
     void ImGuiLayer::End()
     {
+        LK_PROFILE_FUNCTION()
+
         ImGuiIO& io = ImGui::GetIO();
         Application& app = Application::Get();
         io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());

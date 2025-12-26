@@ -109,8 +109,10 @@ target_precompile_headers(Like
 target_compile_definitions(Like
         PRIVATE
         $<$<PLATFORM_ID:Windows>:LK_PLATFORM_WINDOWS>
-        $<$<PLATFORM_ID:Darwin>:LK_PLATFORM_MACOS>
         $<$<PLATFORM_ID:Windows>:LK_BUILD_DLL>
+
+        $<$<PLATFORM_ID:Darwin>:LK_PLATFORM_MACOS>
+
         GLFW_INCLUDE_NONE
 )
 
