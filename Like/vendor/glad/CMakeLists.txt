@@ -16,3 +16,8 @@ target_sources(glad
 )
 
 target_include_directories(glad PUBLIC include)
+
+set_target_properties(glad PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+        OBJECT_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin-int
+)

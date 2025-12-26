@@ -113,3 +113,9 @@ target_compile_definitions(Like
         $<$<PLATFORM_ID:Windows>:LK_BUILD_DLL>
         GLFW_INCLUDE_NONE
 )
+
+set_target_properties(Like PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+        OBJECT_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin-int
+)

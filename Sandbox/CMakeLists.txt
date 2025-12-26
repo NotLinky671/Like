@@ -28,3 +28,17 @@ target_compile_definitions(Sandbox
         PRIVATE
         $<$<PLATFORM_ID:Darwin>:LK_PLATFORM_MACOS>
 )
+
+set_target_properties(Sandbox PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+        OBJECT_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin-int
+)
+
+add_custom_command(
+        TARGET Sandbox
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets
+        $<TARGET_FILE_DIR:Sandbox>/assets
+)
