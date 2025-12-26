@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <iostream>
+#include <cstdint>
 #include <memory>
 #include <utility>
 #include <algorithm>
@@ -17,6 +18,6 @@
 
 #include "Like/Debug/Instrumentor.h"
 
-#ifdef LK_PLATFORM_WINDOWS
+#if defined(LK_PLATFORM_WINDOWS)
     #include <Windows.h>
 #endif

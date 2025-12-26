@@ -44,13 +44,13 @@ namespace Like
 
     Ref<Shader> ShaderLibrary::Load(const std::string& filepath)
     {
-        auto& shader = Shader::Create(filepath);
+        Ref<Shader> shader = Shader::Create(filepath);
         Add(shader);
         return shader;
     }
     Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
     {
-        auto& shader = Shader::Create(filepath);
+        Ref<Shader> shader = Shader::Create(filepath);
         Add(name, shader);
         return shader;
     }

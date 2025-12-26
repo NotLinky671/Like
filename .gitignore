@@ -2,8 +2,14 @@
 bin/
 bin-int/
 .idea/
+cmake-build-debug/
+build/
 
 *.user
 *.sln
 *.vcxproj
 *.filters
+*.md
+*.DS_Store
+*.json
+*.html

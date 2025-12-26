@@ -27,7 +27,11 @@ namespace Like
     
     Like::OpenGLVertexArray::OpenGLVertexArray()
     {
-        glCreateVertexArrays(1, &m_RendererID);
+        LK_CORE_INFO("OpenGLVertexArray constructor starting");
+        glGenVertexArrays(1, &m_RendererID);
+        LK_CORE_INFO("glGenVertexArrays done, ID={0}", m_RendererID);
+        glBindVertexArray(m_RendererID);
+        LK_CORE_INFO("glBindVertexArray done");
     }
 
     OpenGLVertexArray::~OpenGLVertexArray()

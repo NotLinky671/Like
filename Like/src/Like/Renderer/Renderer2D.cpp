@@ -19,8 +19,11 @@ namespace Like
     
     void Renderer2D::Init()
     {
+        LK_CORE_INFO("Renderer2D::Init() starting");
         s_Data = new Renderer2DStorage();
+        LK_CORE_INFO("Creating QuadVertexArray");
         s_Data->QuadVertexArray = Like::VertexArray::Create();
+        LK_CORE_INFO("QuadVertexArray created and assigned");
 
         float squareVertices[5 * 4] =
         {
@@ -29,9 +32,12 @@ namespace Like
              0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
             -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
         };
-		
+        LK_CORE_INFO("squareVertices array created");
+
         Ref<Like::VertexBuffer> squareVB;
+        LK_CORE_INFO("Creating VertexBuffer");
         squareVB.reset(Like::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+        LK_CORE_INFO("VertexBuffer created, setting layout");
         squareVB->SetLayout
         (
         {
@@ -45,11 +51,15 @@ namespace Like
         Ref<Like::IndexBuffer> squareIB;
         squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
         s_Data->QuadVertexArray->SetIndexBuffer(squareIB);
-        
+        LK_CORE_INFO("QuadVertexArray created");
+
+        LK_CORE_INFO("Creating WhiteTexture");
         s_Data->WhiteTexture = Texture2D::Create(1, 1);
         uint32_t whiteTextureData = 0xffffffff;
         s_Data->WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
-        
+        LK_CORE_INFO("WhiteTexture created");
+
+        LK_CORE_INFO("Creating TextureShader");
         s_Data->TextureShader = Shader::Create("assets/shaders/Texture.glsl");
         s_Data->TextureShader->Bind();
         s_Data->TextureShader->SetInt("u_Texture", 0);

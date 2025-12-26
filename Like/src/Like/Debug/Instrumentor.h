@@ -132,12 +132,20 @@ namespace Like
     };
 }
 
+#if defined(_MSC_VER)
+    #define LK_FUNC_SIG __FUNCSIG__
+#elif defined(__clang__) || defined(__GNUC__)
+    #define LK_FUNC_SIG __PRETTY_FUNCTION__
+#else
+    #define LK_FUNC_SIG __func__
+#endif
+
 #define LK_PROFILE 1
 #if LK_PROFILE
     #define LK_PROFILE_BEGIN_SESSION(name, filepath) ::Like::Instrumentor::Get().BeginSession(name, filepath)
     #define LK_PROFILE_END_SESSION() ::Like::Instrumentor::Get().EndSession()
     #define LK_PROFILE_SCOPE(name) ::Like::InstrumentationTimer timer##__LINE__(name);
-    #define LK_PROFILE_FUNCTION() LK_PROFILE_SCOPE(__FUNCSIG__)
+    #define LK_PROFILE_FUNCTION() LK_PROFILE_SCOPE(LK_FUNC_SIG)
 #else
     #define LK_PROFILE_BEGIN_SESSION(name, filepath)
     #define LK_PROFILE_END_SESSION()

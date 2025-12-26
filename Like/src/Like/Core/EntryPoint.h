@@ -3,7 +3,6 @@
 
 extern Like::Application* Like::CreateApplication();
 
-#ifdef LK_PLATFORM_WINDOWS
 	int main(int argc, char** argv) {
 		Like::Log::Init();
 
@@ -21,4 +20,3 @@ extern Like::Application* Like::CreateApplication();
 		
 		return 0;
 	}
-#endif

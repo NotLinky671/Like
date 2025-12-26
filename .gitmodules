@@ -1,9 +1,9 @@
-[submodule "Like/vendor/GLFW"]
-	path = Like/vendor/GLFW
-	url = https://github.com/TheCherno/glfw
-[submodule "Like/vendor/imgui"]
-	path = Like/vendor/imgui
-	url = https://github.com/TheCherno/imgui.git
 [submodule "Like/vendor/glm"]
 	path = Like/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "Like/vendor/imgui"]
+	path = Like/vendor/imgui
+	url = https://github.com/ocornut/imgui
+[submodule "Like/vendor/glfw"]
+	path = Like/vendor/glfw
+	url = https://github.com/glfw/glfw

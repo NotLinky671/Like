@@ -20,8 +20,6 @@ namespace Like {
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 		m_Window->SetVSync(false);
 
-		Renderer::Init();
-
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
@@ -39,21 +37,20 @@ namespace Like {
 	}
 
 	void Application::Run() {
-		while (m_Running)
-		{
+	    Renderer::Init();
+
+		while (m_Running) {
 			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			if (!m_Minimized)
-			{
+			if (!m_Minimized) {
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate(timestep);
 			}
 
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-			{
+			for (Layer* layer : m_LayerStack) {
 				layer->OnImGuiRender();
 			}
 			m_ImGuiLayer->End();

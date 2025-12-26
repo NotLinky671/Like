@@ -2,18 +2,24 @@
 
 #include <memory>
 
-#ifdef LK_PLATFORM_WINDOWS
-#if LK_DYNAMIC_LINK
-	#ifdef LK_BUILD_DLL
-		#define LIKE_API __declspec(dllexport)
-	#else
-		#define LIKE_API __declspec(dllimport)
-	#endif
+#if defined(LK_PLATFORM_WINDOWS)
+    #if defined(LK_DYNAMIC_LINK)
+	    #if defined(LK_BUILD_DLL)
+		    #define LIKE_API __declspec(dllexport)
+	    #else
+		    #define LIKE_API __declspec(dllimport)
+	    #endif
+    #else
+	    #define LIKE_API
+    #endif
+#elif defined(LK_PLATFORM_MACOS)
+    #if defined(LK_DYNAMIC_LINK)
+        #define LIKE_API __attribute__((visibility("default")))
+    #else
+        #define LIKE_API
+    #endif
 #else
-	#define LIKE_API
-#endif
-#else
-	#error Like only support Windows!
+#define LIKE_API
 #endif
 
 #ifdef LK_DEBUG
