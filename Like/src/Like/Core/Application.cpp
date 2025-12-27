@@ -9,114 +9,103 @@
 namespace Like {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
-	Application* Application::s_Instance = nullptr;
-	
-	Application::Application() {
-	    LK_PROFILE_FUNCTION()
+Application* Application::s_Instance = nullptr;
 
-		LK_CORE_ASSERT(!s_Instance, "Application already exists");
-		s_Instance = this;
-		
-		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
-		m_Window->SetVSync(false);
+Application::Application() {
+    LK_PROFILE_FUNCTION()
 
-		m_ImGuiLayer = new ImGuiLayer();
-		PushOverlay(m_ImGuiLayer);
-	}
+    LK_CORE_ASSERT(!s_Instance, "Application already exists");
+    s_Instance = this;
 
-	Application::~Application()
-    {
-        LK_PROFILE_FUNCTION()
+    m_Window = std::unique_ptr<Window>(Window::Create());
+    m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+    m_Window->SetVSync(false);
 
-	    Renderer::Shutdown();
-	}
+    m_ImGuiLayer = new ImGuiLayer();
+    PushOverlay(m_ImGuiLayer);
+}
 
-	void Application::PushLayer(Layer* layer)
-    {
-	    LK_PROFILE_FUNCTION()
+Application::~Application() {
+    LK_PROFILE_FUNCTION()
 
-		m_LayerStack.PushLayer(layer);
-	}
+    Renderer::Shutdown();
+}
 
-	void Application::PushOverlay(Layer* layer)
-    {
-	    LK_PROFILE_FUNCTION()
+void Application::PushLayer(Layer* layer) {
+    LK_PROFILE_FUNCTION()
 
-		m_LayerStack.PushOverlay(layer);
-	}
+    m_LayerStack.PushLayer(layer);
+}
 
-	void Application::Run()
-    {
-	    LK_PROFILE_FUNCTION()
+void Application::PushOverlay(Layer* layer) {
+    LK_PROFILE_FUNCTION()
 
-	    Renderer::Init();
+    m_LayerStack.PushOverlay(layer);
+}
 
-		while (m_Running)
-		{
-		    LK_PROFILE_SCOPE("RunLoop")
+void Application::Run() {
+    LK_PROFILE_FUNCTION()
 
-			float time = (float)glfwGetTime();
-			Timestep timestep = time - m_LastFrameTime;
-			m_LastFrameTime = time;
+    Renderer::Init();
 
-			if (!m_Minimized)
-			{
-			    {
-	                LK_PROFILE_SCOPE("LayerStack OnUadate")
+    while (m_Running) {
+        LK_PROFILE_SCOPE("RunLoop")
 
-			        for (Layer* layer : m_LayerStack)
-			            layer->OnUpdate(timestep);
-			    }
+        float time = (float)glfwGetTime();
+        Timestep timestep = time - m_LastFrameTime;
+        m_LastFrameTime = time;
 
-			    m_ImGuiLayer->Begin();
-			    {
-	                LK_PROFILE_SCOPE("LayerStack OnImGuiRender")
+        if (!m_Minimized) {
+            {
+                LK_PROFILE_SCOPE("LayerStack OnUadate")
 
-			        for (Layer* layer : m_LayerStack)
-			            layer->OnImGuiRender();
-			    }
-			    m_ImGuiLayer->End();
-			}
+                for (Layer* layer : m_LayerStack)
+                    layer->OnUpdate(timestep);
+            }
 
-			m_Window->OnUpdate();
-		}
-	}
+            m_ImGuiLayer->Begin();
+            {
+                LK_PROFILE_SCOPE("LayerStack OnImGuiRender")
 
-	void Application::OnEvent(Event& e)
-	{
-		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
-		
-		// LK_CORE_TRACE("{0}", e);
+                for (Layer* layer : m_LayerStack)
+                    layer->OnImGuiRender();
+            }
+            m_ImGuiLayer->End();
+        }
 
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
-		{
-			(*--it)->OnEvent(e);
-			if (e.Handled)
-				break;
-		}
-	}
+        m_Window->OnUpdate();
+    }
+}
 
-	bool Application::OnWindowClose(WindowCloseEvent& e)
-	{
-		m_Running = false;
-		return true;
-	}
+void Application::OnEvent(Event& e) {
+    EventDispatcher dispatcher(e);
+    dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+    dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
-	bool Application::OnWindowResize(WindowResizeEvent& e)
-	{
-	    LK_PROFILE_FUNCTION()
+    // LK_CORE_TRACE("{0}", e);
 
-		if (e.GetWidth() == 0 || e.GetHeight() == 0)
-		{
-			m_Minimized = true;
-			return false;
-		}
-		m_Minimized = false;
-		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
-		
-		return false;
-	}
+    for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
+        (*--it)->OnEvent(e);
+        if (e.Handled)
+            break;
+    }
+}
+
+bool Application::OnWindowClose(WindowCloseEvent& e) {
+    m_Running = false;
+    return true;
+}
+
+bool Application::OnWindowResize(WindowResizeEvent& e) {
+    LK_PROFILE_FUNCTION()
+
+    if (e.GetWidth() == 0 || e.GetHeight() == 0) {
+        m_Minimized = true;
+        return false;
+    }
+    m_Minimized = false;
+    Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+    return false;
+}
 }
